@@ -21,10 +21,9 @@ class Source(commands.Cog):
             await ctx.send("Too big of file image")
         except ServerError:
             await ctx.send("Server error")
-        except InvalidToken:
-            await ctx.send("Invalid token")
+        #except InvalidToken:
+        #    await ctx.send("Invalid token")
         except EmptyImage:
             await ctx.send("Empty image provided")
-        except InvalidPath:
-            await ctx.send("Invalid path, bot had an error with .save method")
-        # Your code will go here
+        #except InvalidPath:
+        #    await ctx.send("Invalid path, bot had an error with .save method")
