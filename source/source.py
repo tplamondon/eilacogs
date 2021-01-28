@@ -45,7 +45,7 @@ class Source(commands.Cog):
         except EntityTooLarge:
             await ctx.send("Too big of file image")
         except ServerError:
-            await ctx.send("Server error")
+            await ctx.send("Server error. Ensure image is provided as URL and points directly to png or jpg image")
         #except InvalidToken:
         #    await ctx.send("Invalid token")
         except EmptyImage:
