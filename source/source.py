@@ -13,7 +13,7 @@ class Source(commands.Cog):
 
 
     #@commands.command()
-    @commands.group(name="source")
+    @commands.group(name="source", invoke_without_command=True)
     async def sourceCommand(self, ctx):
         """
         Looks for source of image
@@ -31,6 +31,8 @@ class Source(commands.Cog):
                 attachment = ctx.message.attachments[0].url
             except:
                 #await ctx.send(helpmsg)
+                #await self.bot.send_help_for(self, command="source")
+                await ctx.send_help(command="source")
                 return
             result = tracemoe.search(attachment.strip("<>"), is_url = True)
             titleEnglish = f'{result.docs[0].title_english}'
@@ -45,7 +47,7 @@ class Source(commands.Cog):
             if(similarity < 0.8):
                 await ctx.send("Anime: " + titleEnglish + "\nEpisode: " + episode +"\nWARNING: Similarity less than 80%, result may not be accurate"+ "\n"+URL)
                 #embed.add_field(name="Warning", value="Similarity less than  80%, results may be innacurate")
-                #await ctx.send(embed=embed)
+                #
             else:
                 await ctx.send("Anime: " + titleEnglish + "\nSimilarity: " + ('%.3f'%((similarity)*100)) +"%" + "\nEpisode: " + episode + "\n"+URL)
                 #await ctx.send(embed=embed)
@@ -82,7 +84,6 @@ class Source(commands.Cog):
             episode = f'{result.docs[0].episode}'
             similarity = float(f'{result.docs[0].similarity}')
             URL = "https://anilist.co/anime/"+anilistID
-))
             if(similarity < 0.8):
                 await ctx.send("Anime: " + titleEnglish + "\nEpisode: " + episode +"\nWARNING: Similarity less than 80%, result may not be accurate"+ "\n"+URL)
             else:
