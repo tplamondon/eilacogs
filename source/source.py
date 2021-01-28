@@ -49,6 +49,6 @@ class Source(commands.Cog):
         #except InvalidToken:
         #    await ctx.send("Invalid token")
         except EmptyImage:
-            await ctx.send("Empty image provided")
+            await ctx.send("Empty image provided. Ensure image is provided as URL and points directly to png or jpg image")
         #except InvalidPath:
         #    await ctx.send("Invalid path, bot had an error with .save method")
