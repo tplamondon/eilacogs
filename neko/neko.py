@@ -3,7 +3,7 @@ import requests
 import json
 
 class Neko(commands.Cog):
-    """Looks up source of anime and pictures, may get NSFW results. Requires requests to be installed"""
+    """Posts a random catgirl. Requires requests to be installed"""
     """pip install requests"""
 
     @commands.command()
