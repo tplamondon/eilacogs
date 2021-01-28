@@ -11,19 +11,22 @@ class Source(commands.Cog):
     """Looks up source of anime and pictures, may get NSFW results. Requires tracemoepy to be installed"""
     """ run 'pip install tracemoepy' on your redbot virtual environment to install"""
 
-    @commands.command()
-    async def source(self, ctx, imageURL):
+
+    #@commands.command()
+    @commands.group(name="source")
+    async def source(self, ctx):
         """
         Looks for source of image
 
         Parameters:
         -----------
-        imageURL: a url pointing to a image from an anime episode. Can be surrounded with < or > to supressed embeds in discord
+        make sure to attach a png or jpg image, or type 'source url URL_HERE'
         """
+
+        helpmsg = "Looks for source of image\nMake sure to attach a png or jpg image or provide a direct URL to one"
         tracemoe = tracemoepy.tracemoe.TraceMoe()
         try:
-            await ctx.trigger_typing()
-            result = tracemoe.search(imageURL.strip("<>"), is_url = True)
+            result = tracemoe.search(attachment.strip("<>"), is_url = True)
             titleEnglish = f'{result.docs[0].title_english}'
             anilistID = f'{result.docs[0].anilist_id}'
             episode = f'{result.docs[0].episode}'
@@ -53,27 +56,21 @@ class Source(commands.Cog):
         #except InvalidPath:
         #    await ctx.send("Invalid path, bot had an error with .save method")
 
-    @commands.command()
-    async def source(self, ctx):
+
+    #@commands.command()
+    @source.command(name="url")
+    async def urlSource(self, ctx, imageURL):
         """
         Looks for source of image
 
         Parameters:
         -----------
-        make sure to attach a png or jpg image, or just provide a URL
+        imageURL: a url pointing to a image from an anime episode. Can be surrounded with < or > to supressed embeds in discord
         """
-
-        helpmsg = "Looks for source of image\nMake sure to attach a png or jpg image or provide a direct URL to one"
         tracemoe = tracemoepy.tracemoe.TraceMoe()
         try:
             await ctx.trigger_typing()
-            try:
-                attachment = ctx.message.attachments[0].url
-            except:
-                await ctx.send(helpmsg)
-                return
-
-            result = tracemoe.search(attachment.strip("<>"), is_url = True)
+            result = tracemoe.search(imageURL.strip("<>"), is_url = True)
             titleEnglish = f'{result.docs[0].title_english}'
             anilistID = f'{result.docs[0].anilist_id}'
             episode = f'{result.docs[0].episode}'
