@@ -13,7 +13,7 @@ class Source(commands.Cog):
 
 
     #@commands.command()
-    @commands.group(name="source")
+    @commands.group()
     async def source(self, ctx):
         """
         Looks for source of image
@@ -23,9 +23,15 @@ class Source(commands.Cog):
         make sure to attach a png or jpg image, or type 'source url URL_HERE'
         """
 
-        helpmsg = "Looks for source of image\nMake sure to attach a png or jpg image or provide a direct URL to one"
+        helpmsg = "Looks for source of image\nMake sure to attach a png or jpg image, or type 'source url URL_HERE'"
         tracemoe = tracemoepy.tracemoe.TraceMoe()
         try:
+            await ctx.trigger_typing()
+            try:
+                attachment = ctx.message.attachments[0].url
+            except:
+                #await ctx.send(helpmsg)
+                return
             result = tracemoe.search(attachment.strip("<>"), is_url = True)
             titleEnglish = f'{result.docs[0].title_english}'
             anilistID = f'{result.docs[0].anilist_id}'
@@ -58,7 +64,7 @@ class Source(commands.Cog):
 
 
     #@commands.command()
-    @source.command(name="url")
+    @source.command
     async def urlSource(self, ctx, imageURL):
         """
         Looks for source of image
