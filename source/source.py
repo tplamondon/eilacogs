@@ -9,10 +9,11 @@ class Source(commands.Cog):
         """Looks for source of image"""
         tracemoe = tracemoepy.tracemoe.TraceMoe()
         try:
-            result = tracemoe.search(imageURL, is_url = True)
+            result = tracemoe.search(imageURL.strip("<>"), is_url = True)
             titleEnglish = f'{result.docs[0].title_english}'
             anilistID = f'{result.docs[0].anilist_id}'
-            await ctx.send("Anime: " + titleEnglish + "\nAnilistID: "+anilistID)
+            episode = f'{result.docs[0].episode}'
+            await ctx.send("Anime: " + titleEnglish + "\nAnilistID: "+anilistID + "\nEpisode: " + episode)
         except TooManyRequests:
             await ctx.send("Too many requests sent")
         except EntityTooLarge:
