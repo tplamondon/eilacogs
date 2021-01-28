@@ -3,6 +3,7 @@ import tracemoepy
 
 class Source(commands.Cog):
     """Looks up source of anime and pictures, may get NSFW results. Requires tracemoepy to be installed"""
+    """ run 'pip install tracemoepy' on your redbot virtual environment to install"""
 
     @commands.command()
     async def source(self, ctx, imageURL):
