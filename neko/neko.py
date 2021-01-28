@@ -8,6 +8,7 @@ class Neko(commands.Cog):
 
     @commands.command()
     async def neko(self, ctx):
+        """Posts a random catgirl"""
         response = requests.get("https://nekos.moe/api/v1/random/image?nsfw=false")
         JSON = response.json()
         imageID = JSON["images"][0]["id"]
