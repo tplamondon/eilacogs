@@ -8,4 +8,5 @@ class Say(commands.Cog):
     async def say(self, ctx, *message):
         """Make the bot say something"""
         str = " ".join(message)
+        await ctx.message.delete()
         await ctx.send(str)
