@@ -1,15 +1,16 @@
 from redbot.core import commands
 import tracemoepy
 from tracemoepy.errors import EmptyImage, EntityTooLarge, ServerError, TooManyRequests
-from discord import Embed
 
 
 class Source(commands.Cog):
-    """Looks up source of anime and pictures, may get NSFW results. Requires tracemoepy to be installed"""
-
-    """ run 'pip install tracemoepy' on your redbot virtual environment to install"""
+    """Looks up source of anime and pictures, may get NSFW results. Requires tracemoepy to be installed
+    run 'pip install tracemoepy' on your redbot virtual environment to install
+    """
 
     async def postSource(self, ctx, imageURL):
+        """helper method
+        """
         try:
             tracemoe = tracemoepy.tracemoe.TraceMoe()
             result = tracemoe.search(imageURL.strip("<>"), is_url=True)
@@ -32,8 +33,6 @@ class Source(commands.Cog):
                     + "\n"
                     + URL
                 )
-                # embed.add_field(name="Warning", value="Similarity less than  80%, results may be innacurate")
-                #
             else:
                 await ctx.send(
                     "Anime: "
@@ -72,7 +71,7 @@ class Source(commands.Cog):
         await ctx.trigger_typing()
         try:
             imageURL = ctx.message.attachments[0].url
-            postSource(self, ctx, imageURL)
+            await postSource(self, ctx, imageURL)
             return
         except:
             await ctx.send_help(command="source")
@@ -87,4 +86,4 @@ class Source(commands.Cog):
         -----------
         imageURL: a url pointing to a image from an anime episode. Can be surrounded with <> to suppress embeds in Discord
         """
-        postSource(self, ctx, imageURL)
+        await postSource(self, ctx, imageURL)
