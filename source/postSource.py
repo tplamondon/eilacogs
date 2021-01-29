@@ -40,7 +40,7 @@ async def postSourceFunction(self, ctx, imageURL):
             )
         # await ctx.send(embed=embed)
     except TooManyRequests:
-        await ctx.send("Too many requests sent")
+        await ctx.send("Please try again later")
     except EntityTooLarge:
         await ctx.send("Too big of file image")
     except ServerError:

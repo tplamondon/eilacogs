@@ -5,10 +5,6 @@ from .postSource import postSourceFunction
 
 
 class Source(commands.Cog):
-    """Looks up source of anime and pictures, may get NSFW results. Requires tracemoepy to be installed
-    run 'pip install tracemoepy' on your redbot virtual environment to install
-    """
-
     # @commands.command()
     @commands.group(name="source", invoke_without_command=True)
     async def sourceCommand(self, ctx):
@@ -19,13 +15,14 @@ class Source(commands.Cog):
         make sure to attach a png or jpg image, or type 'source url URL_HERE'
         """
         await ctx.trigger_typing()
-        try:
+        if not ctx.message.attachments:
+            await ctx.send_help(command="source")
+            return
+        else:
             imageURL = ctx.message.attachments[0].url
             await postSourceFunction(self, ctx, imageURL)
             return
-        except:
-            await ctx.send_help(command="source")
-            return
+
 
     # @commands.command()
     @sourceCommand.command(name="url")
