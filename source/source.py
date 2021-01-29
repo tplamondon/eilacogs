@@ -9,30 +9,10 @@ class Source(commands.Cog):
 
     """ run 'pip install tracemoepy' on your redbot virtual environment to install"""
 
-
-
-    def postSource(self, ctx, imageURL):
-        
-
-    # @commands.command()
-    @commands.group(name="source", invoke_without_command=True)
-    async def sourceCommand(self, ctx):
-        """Looks for source of image
-
-        Parameters:
-        -----------
-        make sure to attach a png or jpg image, or type 'source url URL_HERE'
-        """
-
-        tracemoe = tracemoepy.tracemoe.TraceMoe()
+    async def postSource(self, ctx, imageURL):
         try:
-            await ctx.trigger_typing()
-            try:
-                attachment = ctx.message.attachments[0].url
-            except:
-                await ctx.send_help(command="source")
-                return
-            result = tracemoe.search(attachment.strip("<>"), is_url=True)
+            tracemoe = tracemoepy.tracemoe.TraceMoe()
+            result = tracemoe.search(imageURL.strip("<>"), is_url=True)
             titleEnglish = result.docs[0].title_english
             anilistID = result.docs[0].anilist_id
             episode = result.docs[0].episode
@@ -66,7 +46,7 @@ class Source(commands.Cog):
                     + "\n"
                     + URL
                 )
-                # await ctx.send(embed=embed)
+            # await ctx.send(embed=embed)
         except TooManyRequests:
             await ctx.send("Too many requests sent")
         except EntityTooLarge:
@@ -75,14 +55,28 @@ class Source(commands.Cog):
             await ctx.send(
                 "Server error. Ensure image is provided as URL and points directly to png or jpg image"
             )
-        # except InvalidToken:
-        #    await ctx.send("Invalid token")
         except EmptyImage:
             await ctx.send(
                 "Empty image provided. Ensure image is provided as URL and points directly to png or jpg image"
             )
-        # except InvalidPath:
-        #    await ctx.send("Invalid path, bot had an error with .save method")
+
+    # @commands.command()
+    @commands.group(name="source", invoke_without_command=True)
+    async def sourceCommand(self, ctx):
+        """Looks for source of image
+
+        Parameters:
+        -----------
+        make sure to attach a png or jpg image, or type 'source url URL_HERE'
+        """
+        await ctx.trigger_typing()
+        try:
+            imageURL = ctx.message.attachments[0].url
+            postSource(self, ctx, imageURL)
+            return
+        except:
+            await ctx.send_help(command="source")
+            return
 
     # @commands.command()
     @sourceCommand.command(name="url")
@@ -93,50 +87,4 @@ class Source(commands.Cog):
         -----------
         imageURL: a url pointing to a image from an anime episode. Can be surrounded with <> to suppress embeds in Discord
         """
-        tracemoe = tracemoepy.tracemoe.TraceMoe()
-        try:
-            await ctx.trigger_typing()
-            result = tracemoe.search(imageURL.strip("<>"), is_url=True)
-            titleEnglish = f"{result.docs[0].title_english}"
-            anilistID = f"{result.docs[0].anilist_id}"
-            episode = f"{result.docs[0].episode}"
-            similarity = float(f"{result.docs[0].similarity}")
-            URL = "https://anilist.co/anime/" + anilistID
-            if similarity < 0.8:
-                await ctx.send(
-                    "Anime: "
-                    + titleEnglish
-                    + "\nEpisode: "
-                    + episode
-                    + "\nWARNING: Similarity less than 80%, result may not be accurate"
-                    + "\n"
-                    + URL
-                )
-            else:
-                await ctx.send(
-                    "Anime: "
-                    + titleEnglish
-                    + "\nSimilarity: "
-                    + ("%.3f" % ((similarity) * 100))
-                    + "%"
-                    + "\nEpisode: "
-                    + episode
-                    + "\n"
-                    + URL
-                )
-        except TooManyRequests:
-            await ctx.send("Too many requests sent")
-        except EntityTooLarge:
-            await ctx.send("Too big of file image")
-        except ServerError:
-            await ctx.send(
-                "Server error. Ensure image is provided as URL and points directly to png or jpg image"
-            )
-        # except InvalidToken:
-        #    await ctx.send("Invalid token")
-        except EmptyImage:
-            await ctx.send(
-                "Empty image provided. Ensure image is provided as URL and points directly to png or jpg image"
-            )
-        # except InvalidPath:
-        #    await ctx.send("Invalid path, bot had an error with .save method")
+        postSource(self, ctx, imageURL)
