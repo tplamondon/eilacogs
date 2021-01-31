@@ -53,7 +53,7 @@ async def postSourceFunction(ctx, imageURL):
 class Source(commands.Cog):
     @commands.group(name="source", invoke_without_command=True)
     async def sourceCommand(self, ctx):
-        """Looks for source of image
+        """Looks for source of a screenshot from anime, using trace.moe
 
         Parameters:
         -----------
@@ -70,7 +70,7 @@ class Source(commands.Cog):
 
     @sourceCommand.command(name="url")
     async def urlSource(self, ctx, imageURL):
-        """Looks for source of image
+        """Looks for source of a screenshot from anime, using trace.moe
 
         Parameters:
         -----------
