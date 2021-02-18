@@ -3,6 +3,14 @@ import tracemoepy
 from tracemoepy.errors import EmptyImage, EntityTooLarge, ServerError, TooManyRequests
 
 
+async def assignDefaultStringValue(stringVar, val):
+    """
+    Assigns default value to string if string is null
+    """
+    if stringVar == None:
+        stringVar = val
+    return
+
 async def postSourceFunction(ctx, imageURL):
     """helper method"""
     try:
@@ -12,15 +20,22 @@ async def postSourceFunction(ctx, imageURL):
         anilistID = f"{result.docs[0].anilist_id}"
         episode = f"{result.docs[0].episode}"
         similarity = float(result.docs[0].similarity)
+
+        assignDefaultStringValue(titleEnglish, "No Title Found")
+        assignDefaultStringValue(anilistID, "No anilistID Found")
+        assignDefaultStringValue(episode, "No Episode Found")
+
         URL = "https://anilist.co/anime/" + anilistID
 
-        if similarity < 0.8:
+        if similarity < 0.9:
             await ctx.send(
                 "Anime: "
                 + titleEnglish
                 + "\nEpisode: "
                 + episode
-                + "\nWARNING: Similarity less than 80%, result may not be accurate"
+                + "\nSimilarity: "
+                + ("%.3f" % ((similarity) * 100))
+                + "\nWARNING: Similarity less than 90%, result may not be accurate"
                 + "\n"
                 + URL
             )
