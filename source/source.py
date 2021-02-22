@@ -3,9 +3,30 @@ import tracemoepy
 from tracemoepy.errors import EmptyImage, EntityTooLarge, ServerError, TooManyRequests
 
 
+# TODO: ask if we should just provide a standalone message if no anime title is found, possibly with a warning that it only works on anime screenshots or the episode might be too new
+def messageBuilder(titleEnglish: str, anilistID: str, episode: str, similarity: int):
+    """
+    Builds the message that is sent in response
+    """
+    # Title of anime
+    message = "Anime: " + titleEnglish
+    # episode number
+    message += "\nEpisode: " + episode
+    # How similar message is
+    message += "\nSimilarity: " + ("%.3f" % ((similarity) * 100))
+    if similarity * 100 < 90:
+        # warning if similarity is less than 90%
+        message += "\nWARNING: Similarity less than 90%, result may not be accurate"
+    if anilistID != "No anilistID Found":
+        # URL
+        message += "\nhttps://anilist.co/anime/" + anilistID
+    return message
+
+
 async def postSourceFunction(ctx, imageURL):
     """helper method"""
     try:
+        # use the API to get results
         tracemoe = tracemoepy.tracemoe.TraceMoe()
         result = tracemoe.search(imageURL.strip("<>"), is_url=True)
         titleEnglish = result.docs[0].title_english or "No Title Found"
@@ -13,55 +34,9 @@ async def postSourceFunction(ctx, imageURL):
         episode = f"{result.docs[0].episode}" or "No Episode Found"
         similarity = float(result.docs[0].similarity) or 0
 
-        URL = "https://anilist.co/anime/" + anilistID
+        # send the message using messageBGuilder to build the message
+        await ctx.send(messageBuilder(titleEnglish, anilistID, episode, similarity))
 
-        if similarity < 0.9:
-            if anilistID == "No anilistID Found":
-                await ctx.send(
-                    "Anime: "
-                    + titleEnglish
-                    + "\nEpisode: "
-                    + episode
-                    + "\nSimilarity: "
-                    + ("%.3f" % ((similarity) * 100))
-                    + "\nWARNING: Similarity less than 90%, result may not be accurate"
-                )
-            else:
-                await ctx.send(
-                    "Anime: "
-                    + titleEnglish
-                    + "\nEpisode: "
-                    + episode
-                    + "\nSimilarity: "
-                    + ("%.3f" % ((similarity) * 100))
-                    + "\nWARNING: Similarity less than 90%, result may not be accurate"
-                    + "\n"
-                    + URL
-                )
-        else:
-            if anilistID == "No anilistID Found":
-                if anilistID == "No anilistID Found":
-                    await ctx.send(
-                        "Anime: "
-                        + titleEnglish
-                        + "\nEpisode: "
-                        + episode
-                        + "\nSimilarity: "
-                        + ("%.3f" % ((similarity) * 100))
-                        + "\nWARNING: Similarity less than 90%, result may not be accurate"
-                    )
-            else:
-                await ctx.send(
-                    "Anime: "
-                    + titleEnglish
-                    + "\nSimilarity: "
-                    + ("%.3f" % ((similarity) * 100))
-                    + "%"
-                    + "\nEpisode: "
-                    + episode
-                    + "\n"
-                    + URL
-                )
     except TooManyRequests:
         await ctx.send("Please try again later")
     except EntityTooLarge:
