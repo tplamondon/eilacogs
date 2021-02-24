@@ -4,9 +4,7 @@ from tracemoepy.errors import EmptyImage, EntityTooLarge, ServerError, TooManyRe
 
 
 def messageBuilder(titleEnglish: str, anilistID: str, episode: str, similarity: int):
-    """
-    Builds the message that is sent in response
-    """
+    """Builds the message that is sent in response"""
     # If the title isn't found, just return no matching anime found
     if titleEnglish == "No Title Found":
         return "No matching anime found.\nThis could be because provided picture isn't a screenshot of an anime, or the episode it's from is too new"
