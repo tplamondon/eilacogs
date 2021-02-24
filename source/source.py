@@ -11,17 +11,17 @@ def messageBuilder(titleEnglish: str, anilistID: str, episode: str, similarity: 
     if titleEnglish == "No Title Found":
         return "No matching anime found.\nThis could be because provided picture isn't a screenshot of an anime, or the episode it's from is too new"
     # Title of anime
-    message = "Anime: " + titleEnglish
+    message = f"Anime: {titleEnglish}"
     # episode number
-    message += "\nEpisode: " + episode
+    message += f"\nEpisode: {episode}"
     # How similar message is
-    message += "\nSimilarity: " + ("%.3f" % ((similarity) * 100))
+    message += f"\nSimilarity: {similarity*100:.3f}%"
     if similarity * 100 < 90:
         # warning if similarity is less than 90%
         message += "\nWARNING: Similarity less than 90%, result may not be accurate"
     if anilistID != "No anilistID Found":
         # URL
-        message += "\nhttps://anilist.co/anime/" + anilistID
+        message += f"\nhttps://anilist.co/anime/{anilistID}"
     return message
 
 
