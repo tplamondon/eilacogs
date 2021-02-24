@@ -3,11 +3,13 @@ import tracemoepy
 from tracemoepy.errors import EmptyImage, EntityTooLarge, ServerError, TooManyRequests
 
 
-# TODO: ask if we should just provide a standalone message if no anime title is found, possibly with a warning that it only works on anime screenshots or the episode might be too new
 def messageBuilder(titleEnglish: str, anilistID: str, episode: str, similarity: int):
     """
     Builds the message that is sent in response
     """
+    # If the title isn't found, just return no matching anime found
+    if titleEnglish == "No Title Found":
+        return "No matching anime found.\nThis could be because provided picture isn't a screenshot of an anime, or the episode it's from is too new"
     # Title of anime
     message = "Anime: " + titleEnglish
     # episode number
