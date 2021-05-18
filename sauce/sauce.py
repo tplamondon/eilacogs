@@ -22,4 +22,5 @@ class Sauce(commands.Cog):
         embed.add_field(name="\u200b", value="**[IQDB]({})\n**".format(iqdbLink(url)), inline=False)
         embed.add_field(name="\u200b", value="**[SauceNAO]({})\n**".format(sauceLink(url)), inline=False)
         embed.add_field(name="\u200b", value="**[Yandex]({})\n**".format(yandexLink(url)), inline=False)
+        embed.set_image(url=url)
         await ctx.send(embed=embed)
