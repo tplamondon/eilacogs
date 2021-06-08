@@ -31,13 +31,14 @@ class Waifu(commands.cog):
         await self.waifuCmd(ctx, "neko")
 
 
-    def getImageUrl(image, title):
+    def getImage(image, title):
         """
         Take a passed url from Waifu.pics, and construct a discord.Embed object
 
         Parameters:
         -----------
         image : a URL
+        title: a string
 
         Returns:
         -----------
