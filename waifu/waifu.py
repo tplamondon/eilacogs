@@ -5,12 +5,41 @@ import requests
 from redbot.core import checks, Config, commands
 from redbot.core.bot import Red
 
-#Global variables
+# Global variables
 URL = "https://api.waifu.pics/sfw/"
-IMAGE_CATEGORIES = [ "waifu", "neko", "shinobu", "megumin", "bully", "cuddle", "cry",
-"hug", "awoo", "kiss", "lick", "pat", "smug", "bonk", "yeet", "blush", "smile", "wave",
-"highfive", "handhold", "nom", "bite", "glomp", "slap", "kill", "happy", "wink", "poke",
-"dance", "cringe" ]
+IMAGE_CATEGORIES = [
+    "waifu",
+    "neko",
+    "shinobu",
+    "megumin",
+    "bully",
+    "cuddle",
+    "cry",
+    "hug",
+    "awoo",
+    "kiss",
+    "lick",
+    "pat",
+    "smug",
+    "bonk",
+    "yeet",
+    "blush",
+    "smile",
+    "wave",
+    "highfive",
+    "handhold",
+    "nom",
+    "bite",
+    "glomp",
+    "slap",
+    "kill",
+    "happy",
+    "wink",
+    "poke",
+    "dance",
+    "cringe",
+]
+
 
 class Waifu(commands.Cog):
     """Display waifu.pic pictures"""
@@ -37,7 +66,7 @@ class Waifu(commands.Cog):
     async def _waifu(self, ctx, imageType: str = None):
         """Display a random waifu"""
         if not imageType:
-            #Display about this module if no command passed
+            # Display about this module if no command passed
             waifuAbout(ctx)
             return
         elif imageType.lower() not in IMAGE_CATEGORIES:
@@ -63,7 +92,6 @@ class Waifu(commands.Cog):
         )
         embed.set_footer(text="cogs/waifu")
         await ctx.send(embed=embed)
-
 
     def getImage(image, title):
         """
