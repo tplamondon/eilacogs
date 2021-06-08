@@ -12,13 +12,13 @@ IMAGE_CATEGORIES = [ "waifu", "neko", "shinobu", "megumin", "bully", "cuddle", "
 "highfive", "handhold", "nom", "bite", "glomp", "slap", "kill", "happy", "wink", "poke",
 "dance", "cringe" ]
 
-class Waifu(commands.cog):
+class Waifu(commands.Cog):
     """Display waifu.pic pictures"""
 
     def __init__(self, bot: Red):
         self.bot = bot
 
-    def waifuCmd(self, ctx, imageType):
+    async def waifuCmd(self, ctx, imageType):
         """Display a waifu.pic picture"""
         await ctx.channel.trigger_typing()
         requestURL = URL + imageType
