@@ -54,6 +54,24 @@ class Waifu(commands.cog):
         """Display a random cuddle"""
         await self.waifuCmd(ctx, "cuddle")
 
+    # [p]cry
+    @commands.command(name="cry")
+    async def _cry(self, ctx):
+        """Display a random cry"""
+        await self.waifuCmd(ctx, "cry")
+
+    # [p]hug
+    @commands.command(name="hug")
+    async def _hug(self, ctx):
+        """Display a random hug"""
+        await self.waifuCmd(ctx, "hug")
+
+    # [p]awoo
+    @commands.command(name="awoo")
+    async def _awoo(self, ctx):
+        """Display a random awoo"""
+        await self.waifuCmd(ctx, "awoo")
+
 
     def getImage(image, title):
         """
