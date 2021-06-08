@@ -48,6 +48,12 @@ class Waifu(commands.cog):
         """Display a random bully"""
         await self.waifuCmd(ctx, "bully")
 
+    # [p]cuddle
+    @commands.command(name="cuddle")
+    async def _cuddle(self, ctx):
+        """Display a random cuddle"""
+        await self.waifuCmd(ctx, "cuddle")
+
 
     def getImage(image, title):
         """
