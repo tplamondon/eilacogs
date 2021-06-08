@@ -24,8 +24,8 @@ class Waifu(commands.cog):
         """Display a random waifu"""
         if not imageType:
             imageType = "waifu"
-        
-        await self.waifuCmd(ctx, )
+
+        await self.waifuCmd(ctx, imageType)
 
 
     def getImage(image, title):
