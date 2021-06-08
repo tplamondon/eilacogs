@@ -20,75 +20,12 @@ class Waifu(commands.cog):
 
     # [p]waifu
     @commands.command(name="waifu")
-    async def _waifu(self, ctx):
+    async def _waifu(self, ctx, imageType: str = None):
         """Display a random waifu"""
-        await self.waifuCmd(ctx, "waifu")
-
-    # [p]neko
-    @commands.command(name="neko")
-    async def _neko(self, ctx):
-        """Display a random neko"""
-        await self.waifuCmd(ctx, "neko")
-
-    # [p]shinobu
-    @commands.command(name="shinobu")
-    async def _shinobu(self, ctx):
-        """Display a random shinobu"""
-        await self.waifuCmd(ctx, "shinobu")
-
-    # [p]megumin
-    @commands.command(name="megumin")
-    async def _megumin(self, ctx):
-        """Display a random megumin"""
-        await self.waifuCmd(ctx, "megumin")
-
-    # [p]bully
-    @commands.command(name="bully")
-    async def _bully(self, ctx):
-        """Display a random bully"""
-        await self.waifuCmd(ctx, "bully")
-
-    # [p]cuddle
-    @commands.command(name="cuddle")
-    async def _cuddle(self, ctx):
-        """Display a random cuddle"""
-        await self.waifuCmd(ctx, "cuddle")
-
-    # [p]cry
-    @commands.command(name="cry")
-    async def _cry(self, ctx):
-        """Display a random cry"""
-        await self.waifuCmd(ctx, "cry")
-
-    # [p]hug
-    @commands.command(name="hug")
-    async def _hug(self, ctx):
-        """Display a random hug"""
-        await self.waifuCmd(ctx, "hug")
-
-    # [p]awoo
-    @commands.command(name="awoo")
-    async def _awoo(self, ctx):
-        """Display a random awoo"""
-        await self.waifuCmd(ctx, "awoo")
-
-    # [p]kiss
-    @commands.command(name="kiss")
-    async def _kiss(self, ctx):
-        """Display a random kiss"""
-        await self.waifuCmd(ctx, "kiss")
-
-    # [p]lick
-    @commands.command(name="lick")
-    async def _lick(self, ctx):
-        """Display a random lick"""
-        await self.waifuCmd(ctx, "lick")
-
-    # [p]pat
-    @commands.command(name="pat")
-    async def _pat(self, ctx):
-        """Display a random pat"""
-        await self.waifuCmd(ctx, "pat")
+        if not imageType:
+            imageType = "waifu"
+        
+        await self.waifuCmd(ctx, )
 
 
     def getImage(image, title):
