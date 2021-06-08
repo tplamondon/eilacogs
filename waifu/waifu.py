@@ -14,12 +14,12 @@ class Waifu(commands.cog):
     def __init__(self, bot: Red):
         self.bot = bot
 
-    def waifuCmd(self, ctx):
+    def waifuCmd(self, ctx, imageType):
         """Display a waifu.pic picture"""
         await ctx.channel.trigger_typing()
 
 
-    def getImageUrl(image):
+    def getImageUrl(image, title):
         """
         Take a passed url from Waifu.pics, and construct a discord.Embed object
 
@@ -34,7 +34,7 @@ class Waifu(commands.cog):
         """
         embed = discord.Embed()
         embed.colour = discord.Colour.red()
-        embed.title = "Catgirl"
+        embed.title = title
         embed.url = image
         embed.set_image(url=image)
         return embed
