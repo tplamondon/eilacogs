@@ -36,6 +36,12 @@ class Waifu(commands.cog):
         """Display a random shinobu"""
         await self.waifuCmd(ctx, "shinobu")
 
+    # [p]megumin
+    @commands.command(name="megumin")
+    async def _megumin(self, ctx):
+        """Display a random megumin"""
+        await self.waifuCmd(ctx, "megumin")
+
 
     def getImage(image, title):
         """
