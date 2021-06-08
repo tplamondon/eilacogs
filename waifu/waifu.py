@@ -18,6 +18,12 @@ class Waifu(commands.cog):
         """Display a waifu.pic picture"""
         await ctx.channel.trigger_typing()
 
+    # [p]waifu
+    @commands.command(name="waifu")
+    async def _waifu(self, ctx):
+        """Display a random waifu"""
+        await self.waifuCmd(ctx, "waifu")
+
 
     def getImageUrl(image, title):
         """
