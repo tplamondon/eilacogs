@@ -30,8 +30,9 @@ class Waifu(commands.cog):
             #Display about this module if no command passed
             waifuAbout(ctx)
             return
-
-
+        elif imageType.lower() not in IMAGE_CATEGORIES:
+            imageType = "waifu"
+        
         await self.waifuCmd(ctx, imageType)
 
     async def waifuAbout(self, ctx):
