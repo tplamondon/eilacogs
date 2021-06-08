@@ -21,6 +21,16 @@ class Waifu(commands.cog):
     def waifuCmd(self, ctx, imageType):
         """Display a waifu.pic picture"""
         await ctx.channel.trigger_typing()
+        requestURL = URL + imageType
+        r = requests.get(url=requestURL)
+        data = r.json()
+        embed = getImage(data["url"], imageType)
+
+        try:
+            await ctx.send(embed=embed)
+        except discord.errors.Forbidden:
+            # No permission to send, ignore.
+            pass
 
     # [p]waifu
     @commands.command(name="waifu")
@@ -32,7 +42,7 @@ class Waifu(commands.cog):
             return
         elif imageType.lower() not in IMAGE_CATEGORIES:
             imageType = "waifu"
-        
+
         await self.waifuCmd(ctx, imageType)
 
     async def waifuAbout(self, ctx):
