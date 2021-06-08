@@ -24,6 +24,12 @@ class Waifu(commands.cog):
         """Display a random waifu"""
         await self.waifuCmd(ctx, "waifu")
 
+    # [p]waifu
+    @commands.command(name="neko")
+    async def _neko(self, ctx):
+        """Display a random neko"""
+        await self.waifuCmd(ctx, "neko")
+
 
     def getImageUrl(image, title):
         """
