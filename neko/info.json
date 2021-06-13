@@ -1,9 +1,9 @@
 {
     "author" : ["Thomas"],
-    "install_msg" : "A collection of cogs, transferred over from nicobot I helped develop",
-    "name" : "eilacogs",
-    "short" : "eilacogs?",
-    "description" : "Some cogs transferred over from nicobot which I helped develop",
+    "install_msg" : "Installed neko from eilacogs",
+    "name" : "neko",
+    "short" : "Post a random catgirl",
+    "description" : "Post a random catgirl",
     "min_python_version": [3, 8, 1],
     "requirements": ["requests"],
 	"tags": []

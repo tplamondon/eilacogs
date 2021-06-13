@@ -1,0 +1,9 @@
+{
+    "author" : ["Thomas"],
+    "install_msg" : "A collection of cogs, transferred over from nicobot I helped develop",
+    "name" : "eilacogs",
+    "short" : "A collection of cogs I developed",
+    "description" : "Cogs I developed in my free time, some transferred over from the nicobot I helped develop. Some new ones",
+    "min_python_version": [3, 8, 1]
+	"tags": []
+}
