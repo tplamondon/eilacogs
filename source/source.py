@@ -29,10 +29,10 @@ async def postSourceFunction(ctx, imageURL):
         # use the API to get results
         tracemoe = tracemoepy.tracemoe.TraceMoe()
         result = tracemoe.search(imageURL.strip("<>"), is_url=True)
-        titleEnglish = result.docs[0].title_english or "No Title Found"
-        anilistID = f"{result.docs[0].anilist_id}" or "No anilistID Found"
-        episode = f"{result.docs[0].episode}" or "No Episode Found"
-        similarity = float(result.docs[0].similarity) or 0
+        titleEnglish = result.result[0].anilist.title.english or "No Title Found"
+        anilistID = f"{result.result[0].anilist.id}" or "No anilistID Found"
+        episode = f"{result.result[0].episode}" or "No Episode Found"
+        similarity = float(result.result[0].similarity) or 0
 
         # send the message using messageBGuilder to build the message
         await ctx.send(messageBuilder(titleEnglish, anilistID, episode, similarity))
