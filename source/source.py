@@ -27,12 +27,14 @@ async def postSourceFunction(ctx, imageURL):
     """helper method"""
     try:
         # use the API to get results
-        tracemoe = tracemoepy.tracemoe.TraceMoe()
-        result = tracemoe.search(imageURL.strip("<>"), is_url=True)
+
+        tracemoe = tracemoepy.AsyncTrace()
+        result = await tracemoe.search(imageURL.strip("<>"), is_url=True)
         titleEnglish = result.result[0].anilist.title.english or "No Title Found"
         anilistID = f"{result.result[0].anilist.id}" or "No anilistID Found"
         episode = f"{result.result[0].episode}" or "No Episode Found"
         similarity = float(result.result[0].similarity) or 0
+        await tracemoe.aio_session.close()
 
         # send the message using messageBGuilder to build the message
         await ctx.send(messageBuilder(titleEnglish, anilistID, episode, similarity))
